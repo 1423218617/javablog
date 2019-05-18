@@ -33,7 +33,7 @@ public class UserCommonMethodTest {
     @Test
     public void social(){
         Map map=UserCommonMethod.social();
-        System.out.println(map);
+        map.forEach((n,v)-> System.out.println(n+"  "+v));
     }
 
 }

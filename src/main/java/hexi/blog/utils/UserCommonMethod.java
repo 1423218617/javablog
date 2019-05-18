@@ -26,6 +26,11 @@ public final class UserCommonMethod {
     @Autowired
     private static OptionsService optionsService;
 
+    @Autowired
+    public void setOptionsService(OptionsService optionsService){
+        UserCommonMethod.optionsService=optionsService;
+    }
+
     public static final String[] icons= {"bg-ico-book", "bg-ico-game", "bg-ico-note", "bg-ico-chat", "bg-ico-code", "bg-ico-image", "bg-ico-web", "bg-ico-link", "bg-ico-design", "bg-ico-lock"};
 
 
