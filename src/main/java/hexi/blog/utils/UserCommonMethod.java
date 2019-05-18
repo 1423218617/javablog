@@ -131,7 +131,7 @@ public final class UserCommonMethod {
         socialMap.put("zhihu",map.get(pre+"zhihu"));
         socialMap.put("github",map.get(pre+"github"));
         socialMap.put("twitter",map.get(pre+"twitter"));
-        return socialMap;
+        return socialMap
     }
 
 }
