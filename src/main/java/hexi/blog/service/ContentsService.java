@@ -4,8 +4,11 @@ import hexi.blog.model.pojo.Contents;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ContentsService {
     public Page<Contents> contentsPage(Pageable pageable);
     public Contents findContentsByCid(Integer cid);
     public Contents findContentsBySlug(String Slug);
+    public List<Contents> findAll();
 }

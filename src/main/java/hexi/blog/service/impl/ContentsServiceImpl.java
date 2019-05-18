@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ContentsServiceImpl implements ContentsService {
@@ -30,5 +32,10 @@ public class ContentsServiceImpl implements ContentsService {
     @Override
     public Contents findContentsBySlug(String slug) {
         return contentsDao.findBySlug(slug);
+    }
+
+    @Override
+    public List<Contents> findAll() {
+        return contentsDao.findAll();
     }
 }

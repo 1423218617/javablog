@@ -3,10 +3,12 @@ package hexi.blog.controller;
 
 import hexi.blog.dao.CommentsDao;
 import hexi.blog.dao.ContentsDao;
+import hexi.blog.model.ArchiveVo;
 import hexi.blog.model.pojo.Comments;
 import hexi.blog.model.pojo.Contents;
 import hexi.blog.service.CommentsService;
 import hexi.blog.service.ContentsService;
+import jdk.nashorn.internal.runtime.ListAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class IndexController extends BaseController{
@@ -82,6 +86,36 @@ public class IndexController extends BaseController{
         }
         Page<Comments> commentsPage=commentsService.commentsPageByCid(new PageRequest(Integer.parseInt(pageNum)-1,2),contents.getCid());
         request.setAttribute("comments",commentsPage);
+    }
+
+
+    @GetMapping("/archives")
+    public String archive(HttpServletRequest request){
+        List<Contents> contentsList=contentsService.findAll();
+        List<ArchiveVo> archiveVoList=new ArrayList<>();
+        Set<String> dataStringSet=new TreeSet<>();
+        contentsList.forEach(contents -> {
+            String dataString=new SimpleDateFormat("yyyy年MM月").format(new Date(contents.getCreated()*1000L));
+            dataStringSet.add(dataString);
+        });
+        dataStringSet.forEach(s -> {
+            ArchiveVo archiveVo=new ArchiveVo();
+            archiveVo.setDate(s);
+            archiveVoList.add(archiveVo);
+        });
+        archiveVoList.forEach(archiveVo -> {
+            List<Contents> list=new ArrayList<>();
+            archiveVo.setArticles(list);
+            contentsList.forEach(contents -> {
+                if (new SimpleDateFormat("yyyy年MM月").format(contents.getCreated()*1000L).equals(archiveVo.getDate())){
+                    archiveVo.getArticles().add(contents);
+                }
+            });
+        });
+        Collections.reverse(archiveVoList);
+        request.setAttribute("archives",archiveVoList);
+        return html("archives");
+
     }
 
 }
