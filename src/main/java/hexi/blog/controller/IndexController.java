@@ -1,9 +1,13 @@
 package hexi.blog.controller;
 
 
+import hexi.blog.dao.CommentsDao;
 import hexi.blog.dao.ContentsDao;
+import hexi.blog.model.pojo.Comments;
 import hexi.blog.model.pojo.Contents;
+import hexi.blog.service.CommentsService;
 import hexi.blog.service.ContentsService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +26,9 @@ public class IndexController extends BaseController{
 
     @Autowired
     private ContentsService contentsService;
+
+    @Autowired
+    private CommentsService commentsService;
 
 
     /**
@@ -56,14 +63,25 @@ public class IndexController extends BaseController{
      *
      *
      * @param request
-     * @param cid
+     * @param slug
      * @return
      */
-    @GetMapping("/content/{cid}")
-    public String getContent(HttpServletRequest request,@PathVariable(name = "cid") int cid){
-        Contents contents=contentsService.findContentsByCid(cid);
+    @GetMapping("/content/{slug}")
+    public String getContent(HttpServletRequest request,@PathVariable(name = "slug") String slug){
+        Contents contents=contentsService.findContentsBySlug(slug);
         request.setAttribute("article",contents);
+        getComments(contents,request);
         return html("post");
+    }
+
+
+    public void getComments(Contents contents,HttpServletRequest request){
+        String pageNum=request.getParameter("cp");
+        if (StringUtils.isBlank(pageNum)){
+            pageNum="1";
+        }
+        Page<Comments> commentsPage=commentsService.commentsPageByCid(new PageRequest(Integer.parseInt(pageNum)-1,2),contents.getCid());
+        request.setAttribute("comments",commentsPage);
     }
 
 }

@@ -139,4 +139,8 @@ public final class UserCommonMethod {
         return socialMap;
     }
 
+    public static String permalink(Contents contents){
+        return "/content/"+contents.getSlug();
+    }
+
 }

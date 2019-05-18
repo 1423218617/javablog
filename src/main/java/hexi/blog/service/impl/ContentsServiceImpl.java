@@ -26,4 +26,9 @@ public class ContentsServiceImpl implements ContentsService {
     public Contents findContentsByCid(Integer cid) {
         return contentsDao.getOne(cid);
     }
+
+    @Override
+    public Contents findContentsBySlug(String slug) {
+        return contentsDao.findBySlug(slug);
+    }
 }

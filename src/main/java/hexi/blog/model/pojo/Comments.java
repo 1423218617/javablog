@@ -16,9 +16,9 @@ public class Comments {
     @Id
     @GeneratedValue
     //评论id
-    private Integer coId;
+    private Integer coid;
     //文章id
-    private Integer cId;
+    private Integer cid;
     //作者
     private String author;
     //作者id
