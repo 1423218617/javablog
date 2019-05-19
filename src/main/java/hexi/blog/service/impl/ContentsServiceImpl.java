@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -37,5 +38,12 @@ public class ContentsServiceImpl implements ContentsService {
     @Override
     public List<Contents> findAll() {
         return contentsDao.findAll();
+    }
+
+    @Override
+    public List<Contents> findContentsByTag(String tag) {
+        List<Contents> articles= contentsDao.findAllByTags(tag);
+        Collections.sort(articles);
+        return articles;
     }
 }

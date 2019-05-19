@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "t_contents")
-public class Contents implements Serializable {
+public class Contents implements Serializable,Comparable<Contents> {
 
 
     @Id
@@ -59,4 +59,8 @@ public class Contents implements Serializable {
     private Integer allow_feed;
 
 
+    @Override
+    public int compareTo(Contents contents) {
+        return contents.getHits()-this.getHits();
+    }
 }

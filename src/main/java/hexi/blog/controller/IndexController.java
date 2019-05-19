@@ -120,7 +120,12 @@ public class IndexController extends BaseController{
         Collections.reverse(archiveVoList);
         request.setAttribute("archives",archiveVoList);
         return html("archives");
+    }
 
+    @GetMapping("/tags/{name}")
+    public String tags(HttpServletRequest request,@PathVariable(name = "name") String name) {
+        List<Contents> articles=contentsService.findContentsByTag(name);
+        return "";
     }
 
 }
