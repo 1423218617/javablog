@@ -140,7 +140,9 @@ public final class UserCommonMethod {
     }
 
     public static String permalink(Contents contents){
-        return "/content/"+contents.getSlug();
-    }
+        if (StringUtils.isNotBlank(contents.getSlug())){
+            return "/content/"+contents.getSlug();
+        }
+        return "/content/ ?cid="+contents.getCid();    }
 
 }

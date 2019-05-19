@@ -72,7 +72,12 @@ public class IndexController extends BaseController{
      */
     @GetMapping("/content/{slug}")
     public String getContent(HttpServletRequest request,@PathVariable(name = "slug") String slug){
-        Contents contents=contentsService.findContentsBySlug(slug);
+        Contents contents;
+        if (StringUtils.isNotBlank(slug)){
+            contents=contentsService.findContentsBySlug(slug);
+        }else {
+            contents=contentsService.findContentsByCid(Integer.parseInt(request.getParameter("cid")));
+        }
         request.setAttribute("article",contents);
         getComments(contents,request);
         return html("post");
