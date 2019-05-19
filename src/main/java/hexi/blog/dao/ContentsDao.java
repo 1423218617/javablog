@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ContentsDao extends JpaRepository<Contents,Integer> {
     public Contents findBySlug(String slug);
-    public List<Contents> findAllByTags(String tag);
+    public List<Contents> findAllByCidIn(List<Integer> list);
 }

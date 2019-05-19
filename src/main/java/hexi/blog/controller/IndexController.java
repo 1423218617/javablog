@@ -124,7 +124,7 @@ public class IndexController extends BaseController{
 
     @GetMapping("/tag/{name}")
     public String tags(HttpServletRequest request,@PathVariable(name = "name") String name) {
-        List<Contents> articles=contentsService.findContentsByTag(name);
+        List<Contents> articles=contentsService.findContentsByTagAndName("tag",name);
         request.setAttribute("articles",articles);
         request.setAttribute("type","标签");
         request.setAttribute("keyWord",name);

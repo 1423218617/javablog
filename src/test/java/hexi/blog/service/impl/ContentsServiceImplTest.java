@@ -32,7 +32,7 @@ public class ContentsServiceImplTest {
 
     @Test
     public void tagSort(){
-        List<Contents> list=contentsService.findAll();
+        List<Contents> list=contentsService.findContentsByTagAndName("tag","java");
         Collections.sort(list);
         list.forEach(contents -> System.out.println(contents.getHits()));
     }
