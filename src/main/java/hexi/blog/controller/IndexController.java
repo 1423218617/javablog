@@ -144,9 +144,19 @@ public class IndexController extends BaseController{
      */
     @GetMapping("/tag/{name}")
     public String tags(HttpServletRequest request,@PathVariable(name = "name") String name) {
-        List<Contents> articles=contentsService.findContentsByTagAndName("tag",name);
+        List<Contents> articles=contentsService.findAllContentsByTagAndName("tag",name);
         request.setAttribute("articles",articles);
         request.setAttribute("type","标签");
+        request.setAttribute("keyWord",name);
+        return html("page-category");
+    }
+
+
+    @GetMapping("/category/{name}")
+    public String category(HttpServletRequest request,@PathVariable("name") String name){
+        List<Contents> articles=contentsService.findAllContentsByCategories(name);
+        request.setAttribute("articles",articles);
+        request.setAttribute("type","分类");
         request.setAttribute("keyWord",name);
         return html("page-category");
     }

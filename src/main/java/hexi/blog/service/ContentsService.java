@@ -11,5 +11,6 @@ public interface ContentsService {
     public Contents findContentsByCid(Integer cid);
     public Contents findContentsBySlug(String Slug);
     public List<Contents> findAll();
-    public List<Contents> findContentsByTagAndName(String tag,String name);
+    public List<Contents> findAllContentsByTagAndName(String tag,String name);
+    public List<Contents> findAllContentsByCategories(String category);
 }

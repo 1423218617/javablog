@@ -53,12 +53,19 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
-    public List<Contents> findContentsByTagAndName(String tag,String name) {
+    public List<Contents> findAllContentsByTagAndName(String tag,String name) {
         Metas metas=metasService.findByNameAndType(name,tag);
         List<Relationships> relationshipsList=relationshipsDao.findAllByMid(metas.getMid());
         List<Integer> contentsCidList=relationshipsList.stream().
                 map(relationships -> relationships.getCid()).collect(Collectors.toList());
         List<Contents> articles=contentsDao.findAllByCidIn(contentsCidList);
+        Collections.sort(articles);
+        return articles;
+    }
+
+    @Override
+    public List<Contents> findAllContentsByCategories(String category) {
+        List<Contents> articles=contentsDao.findAllByCategories(category);
         Collections.sort(articles);
         return articles;
     }

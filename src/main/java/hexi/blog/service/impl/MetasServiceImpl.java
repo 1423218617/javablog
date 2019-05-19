@@ -23,4 +23,5 @@ public class MetasServiceImpl implements MetasService {
     public Metas findByNameAndType(String name, String tag) {
         return metasDao.findByNameAndType(name,tag);
     }
+
 }
