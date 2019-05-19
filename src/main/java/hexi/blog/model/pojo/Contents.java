@@ -58,6 +58,8 @@ public class Contents implements Serializable,Comparable<Contents> {
 
     private Integer allow_feed;
 
+    private String type;
+
 
     @Override
     public int compareTo(Contents contents) {

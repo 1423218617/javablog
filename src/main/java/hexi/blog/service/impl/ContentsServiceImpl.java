@@ -33,8 +33,8 @@ public class ContentsServiceImpl implements ContentsService {
 
 
     @Override
-    public Page<Contents> contentsPage(Pageable pageable) {
-        return contentsDao.findAll(pageable);
+    public Page<Contents> contentsPage(Pageable pageable,String type) {
+        return contentsDao.findAllByType(pageable,type);
     }
 
     @Override
