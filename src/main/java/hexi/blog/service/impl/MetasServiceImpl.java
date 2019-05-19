@@ -11,6 +11,7 @@ public class MetasServiceImpl implements MetasService {
     private MetasDao metasDao;
     @Override
     public Metas findByNameAndType(String name, String tag) {
-        return metasDao.findByNameAndType(name,tag);
+        return metasDao.findByNameAndType(name,tag
+        );
     }
 }
