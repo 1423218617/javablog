@@ -56,9 +56,9 @@ public class ContentsServiceImpl implements ContentsService {
     public List<Contents> findContentsByTagAndName(String tag,String name) {
         Metas metas=metasService.findByNameAndType(name,tag);
         List<Relationships> relationshipsList=relationshipsDao.findAllByMid(metas.getMid());
-        List<Integer> contentsCidlist=relationshipsList.stream().
+        List<Integer> contentsCidList=relationshipsList.stream().
                 map(relationships -> relationships.getCid()).collect(Collectors.toList());
-        List<Contents> articles=contentsDao.findAllByCidIn(contentsCidlist);
+        List<Contents> articles=contentsDao.findAllByCidIn(contentsCidList);
         Collections.sort(articles);
         return articles;
     }

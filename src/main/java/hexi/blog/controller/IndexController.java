@@ -84,6 +84,12 @@ public class IndexController extends BaseController{
     }
 
 
+    /**
+     *
+     *
+     * @param contents
+     * @param request
+     */
     public void getComments(Contents contents,HttpServletRequest request){
         String pageNum=request.getParameter("cp");
         if (StringUtils.isBlank(pageNum)){
@@ -94,6 +100,12 @@ public class IndexController extends BaseController{
     }
 
 
+    /**
+     *
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/archives")
     public String archive(HttpServletRequest request){
         List<Contents> contentsList=contentsService.findAll();
@@ -122,6 +134,14 @@ public class IndexController extends BaseController{
         return html("archives");
     }
 
+
+    /**
+     *
+     *
+     * @param request
+     * @param name
+     * @return
+     */
     @GetMapping("/tag/{name}")
     public String tags(HttpServletRequest request,@PathVariable(name = "name") String name) {
         List<Contents> articles=contentsService.findContentsByTagAndName("tag",name);
