@@ -122,10 +122,15 @@ public class IndexController extends BaseController{
         return html("archives");
     }
 
-    @GetMapping("/tags/{name}")
+    @GetMapping("/tag/{name}")
     public String tags(HttpServletRequest request,@PathVariable(name = "name") String name) {
         List<Contents> articles=contentsService.findContentsByTag(name);
-        return "";
+        request.setAttribute("articles",articles);
+        request.setAttribute("type","标签");
+        request.setAttribute("keyWord",name);
+        System.out.println(name);
+        return html("page-category");
     }
+
 
 }
