@@ -6,8 +6,10 @@ import hexi.blog.dao.ContentsDao;
 import hexi.blog.model.ArchiveVo;
 import hexi.blog.model.pojo.Comments;
 import hexi.blog.model.pojo.Contents;
+import hexi.blog.model.pojo.Metas;
 import hexi.blog.service.CommentsService;
 import hexi.blog.service.ContentsService;
+import hexi.blog.service.MetasService;
 import jdk.nashorn.internal.runtime.ListAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class IndexController extends BaseController{
 
     @Autowired
     private CommentsService commentsService;
+
+    @Autowired
+    private MetasService metasService;
 
 
     /**
@@ -159,6 +164,13 @@ public class IndexController extends BaseController{
         request.setAttribute("type","分类");
         request.setAttribute("keyWord",name);
         return html("page-category");
+    }
+
+    @GetMapping("/links")
+    public String links(HttpServletRequest request){
+        List<Metas> links=metasService.findAllByType("link");
+        request.setAttribute("links",links);
+        return html("links");
     }
 
 

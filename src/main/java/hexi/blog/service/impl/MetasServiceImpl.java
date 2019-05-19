@@ -7,6 +7,8 @@ import hexi.blog.service.MetasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class MetasServiceImpl implements MetasService {
@@ -22,6 +24,11 @@ public class MetasServiceImpl implements MetasService {
     @Override
     public Metas findByNameAndType(String name, String tag) {
         return metasDao.findByNameAndType(name,tag);
+    }
+
+    @Override
+    public List<Metas> findAllByType(String type) {
+        return metasDao.findAllByType(type);
     }
 
 }
