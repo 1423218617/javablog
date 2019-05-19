@@ -59,6 +59,7 @@ public class ContentsServiceImpl implements ContentsService {
         List<Integer> contentsCidlist=relationshipsList.stream().
                 map(relationships -> relationships.getCid()).collect(Collectors.toList());
         List<Contents> articles=contentsDao.findAllByCidIn(contentsCidlist);
+        Collections.sort(articles);
         return articles;
     }
 }

@@ -128,7 +128,6 @@ public class IndexController extends BaseController{
         request.setAttribute("articles",articles);
         request.setAttribute("type","标签");
         request.setAttribute("keyWord",name);
-        System.out.println(name);
         return html("page-category");
     }
 
