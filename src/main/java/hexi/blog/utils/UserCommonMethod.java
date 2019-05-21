@@ -15,10 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public final class UserCommonMethod {
@@ -42,7 +39,10 @@ public final class UserCommonMethod {
      * @throws IOException
      */
     public static String showThumb(int cid) throws IOException {
-        File file=new File("src/main/resources/static/user/img/rand");
+        String path=UserCommonMethod.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"static/user/img/rand";
+        path = java.net.URLDecoder.decode(path, "utf-8");
+        File file=new File(path);
+        System.out.println(UserCommonMethod.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"static/user/img/rand/");
         String[] list= file.list();
         return "/user/img/rand/"+ list[cid%list.length];
     }
