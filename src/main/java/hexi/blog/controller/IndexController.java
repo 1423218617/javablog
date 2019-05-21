@@ -2,6 +2,7 @@ package hexi.blog.controller;
 
 
 import hexi.blog.emun.ResultEnum;
+import hexi.blog.exception.IllegalCommentException;
 import hexi.blog.model.ArchiveVo;
 import hexi.blog.model.pojo.Comments;
 import hexi.blog.model.pojo.Contents;
@@ -10,16 +11,15 @@ import hexi.blog.model.vo.ResultVo;
 import hexi.blog.service.CommentsService;
 import hexi.blog.service.ContentsService;
 import hexi.blog.service.MetasService;
+import hexi.blog.utils.PatternUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -174,9 +174,35 @@ public class IndexController extends BaseController{
     }
 
 
-    @GetMapping("/comment")
+    @PostMapping("/comment")
     @ResponseBody
-    public ResultVo comment(){
-        return new ResultVo(ResultEnum.SUCCESS);
+    @Transactional
+    public ResultVo comment(HttpServletRequest request, @RequestParam String cid,@RequestParam String author,
+                            @RequestParam String mail,@RequestParam String url,@RequestParam String text){
+        String referer=request.getHeader("Referer");
+        if (StringUtils.isBlank(referer)||cid==null){
+            return new ResultVo(false,"非法请求　请在博客内评论");
+        }
+        if (StringUtils.isNotBlank(author)&&author.length()>50){
+            return new ResultVo(false,"姓名过长");
+        }
+        if (StringUtils.isBlank(text)||author.length()>200){
+            return new ResultVo(false,"评论过长或评论为空");
+        }
+        if (StringUtils.isNotBlank(mail)&& !PatternUtil.isEmail(mail)){
+            return new ResultVo(false,"请输入正确的邮箱地址");
+        }
+        if (StringUtils.isNotBlank(url)&&!PatternUtil.isUrl(url)){
+            return new ResultVo(false,"请输入正确的网址");
+        }
+        Comments comments=new Comments();
+        comments.setAuthor(author);
+        comments.setMail(mail);
+        comments.setUrl(url);
+        comments.setContent(text);
+        comments.setCid(Integer.parseInt(cid));
+        commentsService.save(comments);
+
+        return new ResultVo(true,"评论成功");
     }
 }

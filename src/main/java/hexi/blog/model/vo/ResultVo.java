@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 public class ResultVo {
-    private Integer code;
+    private Boolean code;
     private String message;
 
-    public ResultVo(ResultEnum resultEnum) {
-        this.code=resultEnum.getCode();
-        this.message = resultEnum.getMessage();
+    public ResultVo(Boolean code, String message) {
+        this.code=code;
+        this.message = message;
     }
 
 }

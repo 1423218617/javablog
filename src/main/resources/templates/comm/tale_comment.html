@@ -29,11 +29,11 @@
                     dataType: 'json',
                     success: function (result) {
                         $('#comment-form input[name=coid]').val('');
-                        if (result && result.success) {
+                        if (result && result.code) {
                             window.location.reload();
                         } else {
-                            if (result.msg) {
-                                alert(result.msg);
+                            if (result.message) {
+                                alert(result.message);
                             }
                         }
                     }

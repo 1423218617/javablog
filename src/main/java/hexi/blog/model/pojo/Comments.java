@@ -3,10 +3,7 @@ package hexi.blog.model.pojo;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "t_comments")
@@ -14,7 +11,7 @@ import javax.persistence.Table;
 public class Comments {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     //评论id
     private Integer coid;
     //文章id
