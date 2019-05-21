@@ -12,4 +12,5 @@ public interface ContentsDao extends JpaRepository<Contents,Integer> {
     public Contents findBySlug(String slug);
     public List<Contents> findAllByCidIn(List<Integer> list);
     public List<Contents> findAllByCategories(String categories);
+    public Contents findBySlugAndType(String slug,String type);
 }

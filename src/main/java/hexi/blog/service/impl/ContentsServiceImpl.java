@@ -69,4 +69,9 @@ public class ContentsServiceImpl implements ContentsService {
         Collections.sort(articles);
         return articles;
     }
+
+    @Override
+    public Contents findContentsBySlugAndType(String slug, String type) {
+        return contentsDao.findBySlugAndType(slug,type);
+    }
 }

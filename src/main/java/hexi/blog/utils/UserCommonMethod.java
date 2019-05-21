@@ -42,7 +42,7 @@ public final class UserCommonMethod {
      * @throws IOException
      */
     public static String showThumb(int cid) throws IOException {
-        File file=new File("/home/hexi/桌面/blog/src/main/resources/static/user/img/rand");
+        File file=new File("src/main/resources/static/user/img/rand");
         String[] list= file.list();
         return "/user/img/rand/"+ list[cid%list.length];
     }

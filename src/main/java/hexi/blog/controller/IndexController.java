@@ -205,4 +205,13 @@ public class IndexController extends BaseController{
 
         return new ResultVo(true,"评论成功");
     }
+
+
+    @GetMapping("/{pageName}")
+    public String page(HttpServletRequest request,@PathVariable  String pageName){
+        Contents contents= contentsService.findContentsBySlugAndType(pageName,"page");
+        getComments(contents,request);
+        request.setAttribute("article",contents);
+        return html("page");
+    }
 }
