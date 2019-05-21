@@ -39,10 +39,11 @@ public final class UserCommonMethod {
      * @throws IOException
      */
     public static String showThumb(int cid) throws IOException {
-        String path=UserCommonMethod.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"static/user/img/rand";
+        String path=UserCommonMethod.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"static/user/img/rand/";
         path = java.net.URLDecoder.decode(path, "utf-8");
         File file=new File(path);
         System.out.println(UserCommonMethod.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"static/user/img/rand/");
+        System.out.println(path);
         String[] list= file.list();
         return "/user/img/rand/"+ list[cid%list.length];
     }
