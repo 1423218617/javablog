@@ -4,7 +4,10 @@ import hexi.blog.dao.UsersDao;
 import hexi.blog.model.pojo.Users;
 import hexi.blog.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersDao usersDao;
