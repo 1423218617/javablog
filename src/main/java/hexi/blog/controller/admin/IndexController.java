@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     @GetMapping("/login")
     public String login(){
-        return "/admin/login";
+        return "admin/login";
     }
 }
