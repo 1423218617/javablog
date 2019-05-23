@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentsDao extends JpaRepository<Comments,Integer> {
     public Page<Comments> findAllByCid(Pageable pageable,Integer cid);
+    public Page<Comments> findAllByStatusOrderByCreatedDesc(Pageable pageable,String status);
 }
