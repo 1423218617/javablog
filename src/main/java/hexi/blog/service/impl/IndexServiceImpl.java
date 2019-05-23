@@ -29,6 +29,7 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public StatisticalVo getStatistical() {
         commentsDao.findAllByStatusOrderByCreatedDesc(new PageRequest(0,5),"approved").getContent().forEach(comments -> System.out.println("  "+ UserCommonMethod.fmtdate(comments.getCreated())));
+        System.out.println(commentsDao.countByStatus("approved"));
         return null;
     }
 
