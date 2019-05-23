@@ -12,8 +12,11 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Resource
     private UserInterceptor userInterceptor;
+    @Resource
+    private AdminInterceptor adminInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userInterceptor);
+        registry.addInterceptor(adminInterceptor).excludePathPatterns("/admin/login");
     }
 }
