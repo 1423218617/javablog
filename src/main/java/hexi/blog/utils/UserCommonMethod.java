@@ -1,6 +1,7 @@
 package hexi.blog.utils;
 
 
+import hexi.blog.model.pojo.Comments;
 import hexi.blog.model.pojo.Contents;
 import hexi.blog.model.pojo.Options;
 import hexi.blog.service.OptionsService;
@@ -127,6 +128,8 @@ public final class UserCommonMethod {
         return "";
     }
 
+
+
     public static Map<String,String> social(){
         final String pre="social_";
         List<Options> optionsList=optionsService.findAll();
@@ -144,6 +147,10 @@ public final class UserCommonMethod {
         if (StringUtils.isNotBlank(contents.getSlug())){
             return "/content/"+contents.getSlug();
         }
-        return "/content/ ?cid="+contents.getCid();    }
+        return "/content/ ?cid="+contents.getCid();
+    }
+    public static String permalink(Comments comments){
+        return "/content/ ?cid="+comments.getCid();
+    }
 
 }

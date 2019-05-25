@@ -3,6 +3,9 @@ package hexi.blog.service.impl;
 import hexi.blog.dao.CommentsDao;
 import hexi.blog.dao.ContentsDao;
 import hexi.blog.dao.MetasDao;
+import hexi.blog.emun.CommentsStatusEnum;
+import hexi.blog.emun.ContentsStatusEnum;
+import hexi.blog.emun.MetasTypeEnum;
 import hexi.blog.model.pojo.Comments;
 import hexi.blog.model.pojo.Contents;
 import hexi.blog.model.vo.StatisticalVo;
@@ -28,18 +31,25 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public StatisticalVo getStatistical() {
-        commentsDao.findAllByStatusOrderByCreatedDesc(new PageRequest(0,5),"approved").getContent().forEach(comments -> System.out.println("  "+ UserCommonMethod.fmtdate(comments.getCreated())));
-        System.out.println(commentsDao.countByStatus("approved"));
-        return null;
+        StatisticalVo statisticalVo=new StatisticalVo();
+        int commentsCount=commentsDao.countByStatus(CommentsStatusEnum.APPROVED.getType());
+        int contentsCount=contentsDao.countByStatusAndType(ContentsStatusEnum.POST.getStatus(),ContentsStatusEnum.POST.getType());
+        int linkCount=metasDao.countByType(MetasTypeEnum.LINK.getType());
+        statisticalVo.setArticles(contentsCount);
+        statisticalVo.setComments(commentsCount);
+        statisticalVo.setLinks(linkCount);
+        return statisticalVo;
+      /*  commentsDao.findAllByStatusOrderByCreatedDesc(new PageRequest(0,5),"approved").getContent().forEach(comments -> System.out.println("  "+ UserCommonMethod.fmtdate(comments.getCreated())));
+        System.out.println(commentsDao.countByStatus("approved"));*/
     }
 
     @Override
     public Page<Comments> getRecentComments(Pageable pageable) {
-        return null;
+        return commentsDao.findAllByStatusOrderByCreatedDesc(pageable,"approved");
     }
 
     @Override
     public Page<Contents> getRecentContents(Pageable pageable) {
-        return null;
+        return contentsDao.findAllByStatusAndTypeOrderByCreatedDesc(ContentsStatusEnum.POST.getStatus(),ContentsStatusEnum.POST.getType(),pageable);
     }
 }

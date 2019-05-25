@@ -38,7 +38,7 @@ public class Contents implements Serializable,Comparable<Contents> {
     private Integer authorId;
 
     //状态
-    private String Status;
+    private String status;
 
     //标签
     private String tags;
