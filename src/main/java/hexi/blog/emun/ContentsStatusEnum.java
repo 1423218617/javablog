@@ -2,7 +2,8 @@ package hexi.blog.emun;
 
 public enum ContentsStatusEnum {
     PAGE(1,"page","publish"),
-    POST(2,"post","publish"),;
+    POST(2,"post","publish"),
+    DRAFT(3,"post","draft"),;
     private int code;
     private String type;
     private String status;

@@ -46,7 +46,7 @@ function subArticle(status) {
         url:url,
         data:params,
         success: function (result) {
-            if (result && result.success) {
+            if (result && result.code) {
                 tale.alertOk({
                     text:'文章保存成功',
                     then: function () {

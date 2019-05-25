@@ -52,11 +52,11 @@ public class Contents implements Serializable,Comparable<Contents> {
     //评论数
     private Integer commentsNum;
 
-    private Integer allowComment;
+    private Boolean allowComment;
 
-    private Integer allowPing;
+    private Boolean allowPing;
 
-    private Integer allow_feed;
+    private Boolean allow_feed;
 
     private String type;
 
