@@ -24,12 +24,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <th:block th:each="post : ${articles.list}">
+                            <th:block th:each="post : ${articles.content}">
                                 <tr th:cid="${post.cid}">
                                     <td>
                                         <a th:href="@{'/admin/article/'+${post.cid}}" th:text="${post.title}"></a>
                                     </td>
-                                    <td><th:block th:text="${commons.fmtdate(post.created, 'yyyy-MM-dd HH:mm:ss')}"/></td>
+                                    <td><th:block th:text="${commons.fmtdate(post.created)}"/></td>
                                     <td><th:block th:text="${post.hits}"/></td>
                                     <td><th:block th:text="${post.categories}"/></td>
                                     <td>

@@ -3,6 +3,7 @@ package hexi.blog.service.impl;
 import hexi.blog.dao.ContentsDao;
 import hexi.blog.dao.MetasDao;
 import hexi.blog.dao.RelationshipsDao;
+import hexi.blog.emun.ContentsStatusEnum;
 import hexi.blog.model.pojo.Contents;
 import hexi.blog.model.pojo.Metas;
 import hexi.blog.model.pojo.Relationships;
@@ -78,5 +79,10 @@ public class ContentsServiceImpl implements ContentsService {
     @Override
     public void save(Contents contents) {
         contentsDao.save(contents);
+    }
+
+    @Override
+    public Page<Contents> findAllContentsByTypeOrderByCreatedDesc(String type,Pageable pageable) {
+        return contentsDao.findAllByStatusAndTypeOrderByCreatedDesc(ContentsStatusEnum.POST.getStatus(),type,pageable);
     }
 }

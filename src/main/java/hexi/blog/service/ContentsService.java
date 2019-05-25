@@ -15,4 +15,5 @@ public interface ContentsService {
     public List<Contents> findAllContentsByCategories(String category);
     public Contents findContentsBySlugAndType(String slug,String type);
     public void save(Contents contents);
+    public Page<Contents> findAllContentsByTypeOrderByCreatedDesc(String type,Pageable pageable);
 }

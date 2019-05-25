@@ -1,7 +1,8 @@
 package hexi.blog.emun;
 
 public enum MetasTypeEnum {
-    LINK(1,"link")
+    LINK(1,"link"),
+    CATEGORY(1,"category")
     ;
     private int code;
     private String type;
