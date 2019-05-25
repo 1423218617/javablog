@@ -14,7 +14,7 @@ public class Contents implements Serializable,Comparable<Contents> {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     //文章id
     @Column(name = "cid")
     private Integer cid;

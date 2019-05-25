@@ -7,6 +7,8 @@ import hexi.blog.model.pojo.Metas;
 import hexi.blog.model.vo.ResultVo;
 import hexi.blog.service.ContentsService;
 import hexi.blog.service.MetasService;
+import hexi.blog.utils.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,8 +38,23 @@ public class ContentsController {
 
     @PostMapping("/publish")
     @ResponseBody
-    public ResultVo doNewArticle(Contents contents){
-        System.out.println(contents);
+    public ResultVo doNewArticle(Contents contents,HttpServletRequest request){
+        String referer=request.getHeader("Referer");
+        if (StringUtils.isBlank(referer)){
+            return new ResultVo(false,"非法请求");
+        }
+        if (StringUtils.isBlank(contents.getTitle())){
+            return new ResultVo(false,"标题不可以为空");
+        }
+        if (StringUtils.isBlank(contents.getContent())){
+            return new ResultVo(false,"内容不可以为空");
+        }
+        contents.setCreated(DateUtil.getUnixTime());
+        contents.setModified(DateUtil.getUnixTime());
+        contents.setHits(0);
+        contents.setCommentsNum(0);
+        contents.setType(ContentsStatusEnum.POST.getType());
+        contentsService.save(contents);
         return new ResultVo(true,"发布成功");
     }
 
