@@ -1,6 +1,7 @@
 package hexi.blog.controller;
 
 
+import hexi.blog.dao.CommentsDao;
 import hexi.blog.emun.ResultEnum;
 import hexi.blog.exception.IllegalCommentException;
 import hexi.blog.model.ArchiveVo;
@@ -38,6 +39,9 @@ public class IndexController extends BaseController{
 
     @Autowired
     private MetasService metasService;
+
+    @Autowired
+    private CommentsDao commentsDao;
 
 
     /**
@@ -201,6 +205,9 @@ public class IndexController extends BaseController{
         comments.setUrl(url);
         comments.setContent(text);
         comments.setCid(Integer.parseInt(cid));
+        Contents contents= contentsService.findContentsByCid(Integer.parseInt(cid));
+        contents.setCommentsNum(contents.getCommentsNum()+1);
+        contentsService.save(contents);
         commentsService.save(comments);
 
         return new ResultVo(true,"评论成功");

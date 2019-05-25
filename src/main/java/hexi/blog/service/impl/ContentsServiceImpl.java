@@ -74,4 +74,9 @@ public class ContentsServiceImpl implements ContentsService {
     public Contents findContentsBySlugAndType(String slug, String type) {
         return contentsDao.findBySlugAndType(slug,type);
     }
+
+    @Override
+    public void save(Contents contents) {
+        contentsDao.save(contents);
+    }
 }

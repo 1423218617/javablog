@@ -14,4 +14,5 @@ public interface ContentsService {
     public List<Contents> findAllContentsByTagAndName(String tag,String name);
     public List<Contents> findAllContentsByCategories(String category);
     public Contents findContentsBySlugAndType(String slug,String type);
+    public void save(Contents contents);
 }
