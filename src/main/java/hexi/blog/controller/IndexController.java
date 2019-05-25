@@ -40,8 +40,6 @@ public class IndexController extends BaseController{
     @Autowired
     private MetasService metasService;
 
-    @Autowired
-    private CommentsDao commentsDao;
 
 
     /**
