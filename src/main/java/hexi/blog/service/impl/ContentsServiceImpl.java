@@ -4,11 +4,14 @@ import hexi.blog.dao.ContentsDao;
 import hexi.blog.dao.MetasDao;
 import hexi.blog.dao.RelationshipsDao;
 import hexi.blog.emun.ContentsStatusEnum;
+import hexi.blog.emun.MetasTypeEnum;
 import hexi.blog.model.pojo.Contents;
 import hexi.blog.model.pojo.Metas;
 import hexi.blog.model.pojo.Relationships;
 import hexi.blog.service.ContentsService;
 import hexi.blog.service.MetasService;
+import hexi.blog.utils.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -78,7 +81,27 @@ public class ContentsServiceImpl implements ContentsService {
 
     @Override
     public void save(Contents contents) {
+        int time= DateUtil.getUnixTime();
+        contents.setHits(0);
+        contents.setCreated(time);
+        contents.setModified(time);
+        contents.setCommentsNum(0);
         contentsDao.save(contents);
+        String[] tags=StringUtils.split(contents.getTags(),",");
+        for (String t:tags){
+            Metas metas=new Metas();
+            metas.setName(t);
+            metas.setSlug(t);
+            metas.setType(MetasTypeEnum.TAG.getType());
+            metasService.save(metas);
+            Relationships relationships=new Relationships();
+            relationships.setCid(contents.getCid());
+            relationships.setMid(metas.getMid());
+            relationshipsDao.save(relationships);
+
+        }
+
+
     }
 
     @Override

@@ -31,4 +31,9 @@ public class MetasServiceImpl implements MetasService {
         return metasDao.findAllByType(type);
     }
 
+    @Override
+    public void save(Metas metas) {
+        metasDao.save(metas);
+    }
+
 }

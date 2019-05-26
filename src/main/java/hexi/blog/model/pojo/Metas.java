@@ -3,9 +3,7 @@ package hexi.blog.model.pojo;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -13,6 +11,7 @@ import javax.persistence.Table;
 public class Metas {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer mid;
 
     private String name;

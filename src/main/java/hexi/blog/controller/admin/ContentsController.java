@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,12 @@ public class ContentsController {
     @Autowired
     private MetasService metasService;
 
+    /**
+     *
+     * 新增文章
+     * @param request
+     * @return
+     */
     @GetMapping("/publish")
     public String newContents(HttpServletRequest request){
         List<Metas> categories=metasService.findAllByType(MetasTypeEnum.CATEGORY.getType());
@@ -33,8 +40,16 @@ public class ContentsController {
         return "admin/article_edit";
     }
 
+    /**
+     * 新增文章
+     *
+     * @param contents
+     * @param request
+     * @return
+     */
     @PostMapping("/publish")
     @ResponseBody
+    @Transactional
     public ResultVo doNewArticle(Contents contents,HttpServletRequest request){
         String referer=request.getHeader("Referer");
         if (StringUtils.isBlank(referer)){
@@ -55,6 +70,15 @@ public class ContentsController {
         return new ResultVo(true,"发布成功");
     }
 
+
+    /**
+     * 文章列表
+     *
+     * @param page
+     * @param limit
+     * @param request
+     * @return
+     */
     @GetMapping("")
     public String adminContents(@RequestParam(value = "page", defaultValue = "1") int page,
                                 @RequestParam(value = "limit", defaultValue = "5") int limit, HttpServletRequest request){
@@ -64,6 +88,13 @@ public class ContentsController {
         return "admin/article_list";
     }
 
+    /**
+     *
+     *
+     * @param cid
+     * @param request
+     * @return
+     */
     @GetMapping("/{cid}")
     public String editContents(@PathVariable(name = "cid") String cid,HttpServletRequest request){
         Contents contents=contentsService.findContentsByCid(Integer.parseInt(cid));
@@ -75,8 +106,16 @@ public class ContentsController {
 
     }
 
+
+    /**
+     * 修改文章
+     *
+     * @param contents
+     * @return
+     */
     @PostMapping("/modify")
     @ResponseBody
+    @Transactional
     public ResultVo modifyContents(Contents contents){
         contentsService.save(contents);
         return new ResultVo(true,"更新成功");
