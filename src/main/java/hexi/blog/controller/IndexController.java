@@ -64,7 +64,7 @@ public class IndexController extends BaseController{
      */
     @GetMapping("/page/{p}")
     public String index(Model model, @PathVariable int p,@RequestParam(defaultValue = "12") int pageSize){
-        Page<Contents> articles=contentsService.contentsPage(new PageRequest(p-1,2),"post");
+        Page<Contents> articles=contentsService.contentsPage(new PageRequest(p-1,pageSize),"post");
         model.addAttribute("articles" ,articles);
         return html("index");
     }

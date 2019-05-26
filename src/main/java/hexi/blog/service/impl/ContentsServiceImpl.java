@@ -83,6 +83,6 @@ public class ContentsServiceImpl implements ContentsService {
 
     @Override
     public Page<Contents> findAllContentsByTypeOrderByCreatedDesc(String type,Pageable pageable) {
-        return contentsDao.findAllByStatusAndTypeOrderByCreatedDesc(ContentsStatusEnum.POST.getStatus(),type,pageable);
+        return contentsDao.findAllByTypeOrderByCreatedDesc(type,pageable);
     }
 }

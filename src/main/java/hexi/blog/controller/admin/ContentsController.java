@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -59,10 +56,30 @@ public class ContentsController {
     }
 
     @GetMapping("")
-    public String adminContents(HttpServletRequest request){
-        Page<Contents> contents=contentsService.findAllContentsByTypeOrderByCreatedDesc(ContentsStatusEnum.POST.getType(),new PageRequest(0,5));
+    public String adminContents(@RequestParam(value = "page", defaultValue = "1") int page,
+                                @RequestParam(value = "limit", defaultValue = "5") int limit, HttpServletRequest request){
+        Page<Contents> contents=contentsService.findAllContentsByTypeOrderByCreatedDesc(ContentsStatusEnum.POST.getType(),new PageRequest(page-1,limit));
         request.setAttribute("articles",contents);
         System.out.println(contents);
         return "admin/article_list";
+    }
+
+    @GetMapping("/{cid}")
+    public String editContents(@PathVariable(name = "cid") String cid,HttpServletRequest request){
+        Contents contents=contentsService.findContentsByCid(Integer.parseInt(cid));
+        List<Metas> categories=metasService.findAllByType(MetasTypeEnum.CATEGORY.getType());
+        request.setAttribute("contents",contents);
+        request.setAttribute("categories",categories);
+        request.setAttribute("active","publish");
+        return "admin/article_edit";
+
+    }
+
+    @PostMapping("/modify")
+    @ResponseBody
+    public ResultVo modifyContents(Contents contents){
+        contentsService.save(contents);
+        return new ResultVo(true,"更新成功");
+
     }
 }

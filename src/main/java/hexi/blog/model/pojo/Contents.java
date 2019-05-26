@@ -56,7 +56,7 @@ public class Contents implements Serializable,Comparable<Contents> {
 
     private Boolean allowPing;
 
-    private Boolean allow_feed;
+    private Boolean allowFeed;
 
     private String type;
 

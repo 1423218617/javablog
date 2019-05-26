@@ -21,7 +21,6 @@ import java.util.*;
 @Component
 public final class UserCommonMethod {
 
-    @Autowired
     private static OptionsService optionsService;
 
     @Autowired

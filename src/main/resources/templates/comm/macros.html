@@ -22,26 +22,27 @@
 <div th:fragment="pageAdminNav(pageInfo)">
     <div class="clearfix">
         <ul class="pagination m-b-5 pull-right">
-            <li th:if="${pageInfo.hasPreviousPage}">
-                <a th:href="@{page=${pageInfo.prePage}}" aria-label="Previous">
+            <li th:if="${pageInfo.hasPrevious()}">
+                <a th:href="@{'?page='+${pageInfo.getNumber()}}" aria-label="Previous">
                     <i class="fa fa-angle-left"></i>&nbsp;上一页
                 </a>
             </li>
 
-            <th:block th:each="nav : ${pageInfo.navigatepageNums}">
-                <li th:class="${nav==pageInfo.pageNum}?'active':''"><a th:href="@{'?page='+${nav}}" th:text="${nav}"></a>
-                </li>
+            <th:block >
+                <li th:class="'current'"><a th:href="@{'?page='+${pageInfo.getNumber()+1}}"
+                                            th:text="${pageInfo.getNumber()+1}"></a></li>
             </th:block>
 
-            <th:block th:if="${pageInfo.hasNextPage}">
+
+            <th:block th:if="${pageInfo.hasNext()}">
                 <li>
-                    <a th:href="@{'?page='+${pageInfo.nextPage}}" aria-label="Next">
+                    <a th:href="@{'?page='+${pageInfo.getNumber()+2}}" aria-label="Next">
                         下一页&nbsp;<i class="fa fa-angle-right"></i>
                     </a>
                 </li>
             </th:block>
 
-            <li><span th:text="'共'+${pageInfo.pages}+'页'"></span></li>
+            <li><span th:text="'共'+${pageInfo.getTotalPages()}+'页'"></span></li>
         </ul>
     </div>
 </div>
