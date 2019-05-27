@@ -21,6 +21,12 @@ public class PageController {
     private ContentsService contentsService;
 
 
+    /**
+     *
+     *
+     * @param request
+     * @return
+     */
     @GetMapping
     public String index(HttpServletRequest request){
         Page<Contents> articles=contentsService.findAllContentsByTypeOrderByCreatedDesc(ContentsStatusEnum.PAGE.getType(),new PageRequest(0,5));
@@ -28,6 +34,13 @@ public class PageController {
         return "admin/page_list";
     }
 
+    /**
+     *
+     *
+     * @param cid
+     * @param request
+     * @return
+     */
     @GetMapping("{cid}")
     public String modifyPage(@PathVariable String cid, HttpServletRequest request){
         Contents contents=contentsService.findContentsByCid(Integer.parseInt(cid));
@@ -35,6 +48,12 @@ public class PageController {
         return "admin/page_edit";
     }
 
+    /**
+     *
+     *
+     * @param cid
+     * @return
+     */
     @PostMapping("delete")
     @ResponseBody
     @Transactional
@@ -43,11 +62,27 @@ public class PageController {
         return new ResultVo(true,"删除页面成功");
     }
 
+    /**
+     *
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("new")
     public String newPage(HttpServletRequest request){
         return "admin/page_edit";
     }
 
+
+    /**
+     *
+     *
+     * @param status
+     * @param title
+     * @param slug
+     * @param content
+     * @return
+     */
     @PostMapping("publish")
     @ResponseBody
     public ResultVo doNewPage(@RequestParam String status,@RequestParam String title,
@@ -60,6 +95,22 @@ public class PageController {
         contents.setStatus(status);
         contentsService.saveNew(contents);
         return new ResultVo(true,"新增页面成功");
+    }
+
+    @PostMapping("/modify")
+    @ResponseBody
+    public ResultVo modifyPage(@RequestParam String cid,@RequestParam String status,@RequestParam String title,
+                               @RequestParam String slug,@RequestParam String content){
+
+        Contents contents=new Contents();
+        contents.setCid(Integer.parseInt(cid));
+        contents.setContent(content);
+        contents.setType(ContentsStatusEnum.PAGE.getType());
+        contents.setTitle(title);
+        contents.setSlug(slug);
+        contents.setStatus(status);
+        contentsService.saveNew(contents);
+        return new ResultVo(true,"修改页面成功页面成功");
     }
 
 }

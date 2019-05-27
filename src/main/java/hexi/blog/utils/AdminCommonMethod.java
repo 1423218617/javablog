@@ -13,4 +13,9 @@ public class AdminCommonMethod {
         return false;
     }
 
+    private static final String[] COLORS = {"default", "primary", "success", "info", "warning", "danger", "inverse", "purple", "pink"};
+    public static String randColor(){
+        return COLORS[(int)(Math.random()*COLORS.length-1)];
+    }
+
 }

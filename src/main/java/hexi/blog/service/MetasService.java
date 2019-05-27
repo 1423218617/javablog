@@ -9,4 +9,5 @@ public interface MetasService {
     public Metas findByNameAndType(String name,String tag);
     public List<Metas> findAllByType(String type);
     public void save(Metas metas);
+    public void deleteByMid(Integer mid);
 }

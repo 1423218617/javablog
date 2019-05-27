@@ -36,4 +36,10 @@ public class MetasServiceImpl implements MetasService {
         metasDao.save(metas);
     }
 
+    @Override
+    public void deleteByMid(Integer mid) {
+        relationshipsDao.deleteByMid(mid);
+        metasDao.deleteByMid(mid);
+    }
+
 }
