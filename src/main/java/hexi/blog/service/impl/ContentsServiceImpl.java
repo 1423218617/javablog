@@ -89,18 +89,21 @@ public class ContentsServiceImpl implements ContentsService {
         contents.setModified(time);
         contents.setCommentsNum(0);
         contentsDao.save(contents);
-        String[] tags=StringUtils.split(contents.getTags(),",");
-        for (String t:tags){
-            Metas metas=new Metas();
-            metas.setName(t);
-            metas.setSlug(t);
-            metas.setType(MetasTypeEnum.TAG.getType());
-            metasService.save(metas);
-            Relationships relationships=new Relationships();
-            relationships.setCid(contents.getCid());
-            relationships.setMid(metas.getMid());
-            relationshipsDao.save(relationships);
+        if (StringUtils.isNotBlank(contents.getTags())){
+            String[] tags=StringUtils.split(contents.getTags(),",");
+            for (String t:tags){
+                Metas metas=new Metas();
+                metas.setName(t);
+                metas.setSlug(t);
+                metas.setType(MetasTypeEnum.TAG.getType());
+                metasService.save(metas);
+                Relationships relationships=new Relationships();
+                relationships.setCid(contents.getCid());
+                relationships.setMid(metas.getMid());
+                relationshipsDao.save(relationships);
+            }
         }
+
 
 
     }

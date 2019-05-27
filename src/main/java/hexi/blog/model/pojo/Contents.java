@@ -1,6 +1,7 @@
 package hexi.blog.model.pojo;
 
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +12,6 @@ import java.util.Date;
 @Entity
 @Table(name = "t_contents")
 public class Contents implements Serializable,Comparable<Contents> {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
