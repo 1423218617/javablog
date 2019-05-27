@@ -122,4 +122,14 @@ public class ContentsController {
         return new ResultVo(true,"更新成功");
 
     }
+
+
+    @PostMapping("/delete")
+    @ResponseBody
+    @Transactional
+    public ResultVo deleteContents(@RequestParam String cid){
+        Integer contentsCid=Integer.parseInt(cid);
+        contentsService.deleteContents(contentsCid);
+        return new ResultVo(true,"删除文章成功");
+    }
 }

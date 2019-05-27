@@ -17,7 +17,7 @@ public class CommentsServiceImpl implements CommentsService {
     private CommentsDao commentsDao;
     @Override
     public Page<Comments> commentsPageByCid(Pageable pageable, Integer cid) {
-        return commentsDao.findAllByCid(pageable,cid);
+        return commentsDao.findAllByCidOrderByCreatedDesc(pageable,cid);
     }
 
     @Override

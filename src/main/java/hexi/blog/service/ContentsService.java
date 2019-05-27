@@ -18,4 +18,5 @@ public interface ContentsService {
     public void saveOld(Contents contents);
     public void update(Contents contents);
     public Page<Contents> findAllContentsByTypeOrderByCreatedDesc(String type,Pageable pageable);
+    public void deleteContents(Integer cid);
 }

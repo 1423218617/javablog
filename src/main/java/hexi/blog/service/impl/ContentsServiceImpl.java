@@ -141,4 +141,10 @@ public class ContentsServiceImpl implements ContentsService {
     public Page<Contents> findAllContentsByTypeOrderByCreatedDesc(String type,Pageable pageable) {
         return contentsDao.findAllByTypeOrderByCreatedDesc(type,pageable);
     }
+
+    @Override
+    public void deleteContents(Integer cid) {
+        relationshipsDao.deleteByCid(cid);
+        contentsDao.deleteByCid(cid);
+    }
 }

@@ -16,4 +16,5 @@ public interface ContentsDao extends JpaRepository<Contents,Integer> {
     public int countByStatusAndType(String status,String type);
     public Page<Contents> findAllByTypeOrderByCreatedDesc(String type, Pageable pageable);
     public Page<Contents> findAllByStatusAndTypeOrderByCreatedDesc(String status,String type, Pageable pageable);
+    public void deleteByCid(Integer cid);
 }
