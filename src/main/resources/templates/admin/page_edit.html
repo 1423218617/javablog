@@ -79,9 +79,9 @@
                 url:url,
                 data:params,
                 success: function (result) {
-                    if (result && result.success) {
+                    if (result && result.code) {
                         tale.alertOk({
-                            text:'页面保存成功',
+                            text:result.message,
                             then: function () {
                                 setTimeout(function () {
                                     window.location.href = '/admin/page';

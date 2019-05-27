@@ -68,8 +68,8 @@
                     url : '/admin/page/delete',
                     data: {cid: cid},
                     success: function (result) {
-                        if(result && result.success){
-                            tale.alertOkAndReload('页面删除成功');
+                        if(result && result.code){
+                            tale.alertOkAndReload(result.message);
                         } else {
                             tale.alertError(result.msg || '页面删除失败');
                         }
