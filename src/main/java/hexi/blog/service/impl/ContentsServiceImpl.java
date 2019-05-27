@@ -17,7 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,8 +39,8 @@ public class ContentsServiceImpl implements ContentsService {
 
 
     @Override
-    public Page<Contents> contentsPage(Pageable pageable,String type) {
-        return contentsDao.findAllByType(pageable,type);
+    public Page<Contents> contentsPage(Pageable pageable,String type,String status) {
+        return contentsDao.findAllByTypeAndStatus(pageable,type,status);
     }
 
     @Override
@@ -80,7 +82,7 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     @Override
-    public void save(Contents contents) {
+    public void saveNew(Contents contents) {
         int time= DateUtil.getUnixTime();
         contents.setHits(0);
         contents.setCreated(time);
@@ -98,10 +100,41 @@ public class ContentsServiceImpl implements ContentsService {
             relationships.setCid(contents.getCid());
             relationships.setMid(metas.getMid());
             relationshipsDao.save(relationships);
-
         }
 
 
+    }
+
+    @Override
+    public void saveOld(Contents contents) {
+        Contents contentsOld=contentsDao.getOne(contents.getCid());
+        int modifyTime= DateUtil.getUnixTime();
+        contents.setModified(modifyTime);
+        contents.setHits(contentsOld.getHits());
+        contents.setCreated(contentsOld.getCreated());
+        contents.setCommentsNum(contentsOld.getCommentsNum());
+        contentsDao.save(contents);
+        String[] tags=StringUtils.split(contents.getTags(),",");
+        List<Integer> mids=new ArrayList<>();
+        for (String t:tags){
+            Metas metas=new Metas();
+            metas.setName(t);
+            metas.setSlug(t);
+            metas.setType(MetasTypeEnum.TAG.getType());
+            metasService.save(metas);
+            Relationships relationships=new Relationships();
+            relationships.setCid(contents.getCid());
+            relationships.setMid(metas.getMid());
+            relationshipsDao.save(relationships);
+            mids.add(relationships.getMid());
+        }
+        relationshipsDao.deleteByCidAndMidNotIn(contents.getCid(),mids);
+        System.out.println(contents);
+    }
+
+    @Override
+    public void update(Contents contents) {
+        contentsDao.save(contents);
     }
 
     @Override

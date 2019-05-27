@@ -64,7 +64,7 @@ public class IndexController extends BaseController{
      */
     @GetMapping("/page/{p}")
     public String index(Model model, @PathVariable int p,@RequestParam(defaultValue = "12") int pageSize){
-        Page<Contents> articles=contentsService.contentsPage(new PageRequest(p-1,pageSize),"post");
+        Page<Contents> articles=contentsService.contentsPage(new PageRequest(p-1,pageSize),"post","publish");
         model.addAttribute("articles" ,articles);
         return html("index");
     }
@@ -205,7 +205,7 @@ public class IndexController extends BaseController{
         comments.setCid(Integer.parseInt(cid));
         Contents contents= contentsService.findContentsByCid(Integer.parseInt(cid));
         contents.setCommentsNum(contents.getCommentsNum()+1);
-        contentsService.save(contents);
+        contentsService.update(contents);
         commentsService.save(comments);
 
         return new ResultVo(true,"评论成功");

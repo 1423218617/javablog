@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ContentsDao extends JpaRepository<Contents,Integer> {
-    public Page<Contents> findAllByType(Pageable pageable,String type);
+    public Page<Contents> findAllByTypeAndStatus(Pageable pageable,String type,String status);
     public Contents findBySlug(String slug);
     public List<Contents> findAllByCidIn(List<Integer> list);
     public List<Contents> findAllByCategories(String categories);

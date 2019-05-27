@@ -66,7 +66,7 @@ public class ContentsController {
         contents.setHits(0);
         contents.setCommentsNum(0);
         contents.setType(ContentsStatusEnum.POST.getType());
-        contentsService.save(contents);
+        contentsService.saveNew(contents);
         return new ResultVo(true,"发布成功");
     }
 
@@ -117,7 +117,8 @@ public class ContentsController {
     @ResponseBody
     @Transactional
     public ResultVo modifyContents(Contents contents){
-        contentsService.save(contents);
+        contents.setType(ContentsStatusEnum.POST.getType());
+        contentsService.saveOld(contents);
         return new ResultVo(true,"更新成功");
 
     }
