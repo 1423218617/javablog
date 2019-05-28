@@ -45,7 +45,7 @@ public final class UserCommonMethod {
         System.out.println(UserCommonMethod.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"static/user/img/rand/");
         System.out.println(path);
         String[] list= file.list();
-        return "/user/img/rand/"+ list[cid%list.length];
+        return "/user/img/rand/"+ cid%20+".jpg";
     }
 
     /**
