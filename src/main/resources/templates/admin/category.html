@@ -108,7 +108,7 @@
                 success: function (result) {
                     $('#cform #mid').val('');
                     $('#cform #cname').val('');
-                    if (result && result.success) {
+                    if (result && result.code) {
                         tale.alertOkAndReload('分类保存成功');
                     } else {
                         tale.alertError(result.msg || '分类保存失败');
@@ -134,7 +134,7 @@
                     url: '/admin/category/delete',
                     data: {mid: mid},
                     success: function (result) {
-                        if (result && result.success) {
+                        if (result && result.code) {
                             tale.alertOkAndReload('删除成功');
                         } else {
                             tale.alertError(result.msg || '删除失败');
