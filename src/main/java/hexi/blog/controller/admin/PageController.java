@@ -109,6 +109,7 @@ public class PageController {
         contents.setTitle(title);
         contents.setSlug(slug);
         contents.setStatus(status);
+        contents.setAllowComment(true);
         contentsService.saveNew(contents);
         return new ResultVo(true,"修改页面成功页面成功");
     }

@@ -99,6 +99,7 @@
     function checkForm() {
         tale.post({
             url: '/admin/login',
+            DataType:'json',
             data: $("#loginForm").serialize(),
             success: function (result) {
                 if (result && result.code) {
